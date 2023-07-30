@@ -1,0 +1,1 @@
+通过canal+kafka方式实现MySQL与redis数据同步
