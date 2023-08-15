@@ -11,6 +11,11 @@ import java.util.Date;
  * @Description
  */
 public class DateTest {
+    /*
+    * LocalDateTime = 2017-06-16T15:38:48.580
+    * Date = Fri Jun 16 15:38:48 CST 2017
+    * */
+
     @Test
     public void test1() throws ParseException {
         Date start = DateTimeUtil.strToDate("2023-07-26 15:23:00");
