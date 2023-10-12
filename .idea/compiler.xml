@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="aspect-annotation" />
+        <module name="test" />
         <module name="kafka" />
         <module name="quartz" />
         <module name="common-utils" />

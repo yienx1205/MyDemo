@@ -50,8 +50,8 @@ public class JsonUtil {
     public static String write2JsonStr(Object o) {
         try {
             return mapper.writeValueAsString(o);
-        } catch (JsonProcessingException var2) {
-            log.error("write2JsonStr, JsonUtil exception", var2);
+        } catch (JsonProcessingException e) {
+            log.error("write2JsonStr, JsonUtil exception", e);
             return "";
         }
     }
@@ -59,8 +59,8 @@ public class JsonUtil {
     public static <T> T json2Object(String json, Class<T> clazz) {
         try {
             return mapper.readValue(json, clazz);
-        } catch (Exception var3) {
-            log.error("json2Object, JsonUtil exception, json is:" + json, var3);
+        } catch (Exception e) {
+            log.error("json2Object, JsonUtil exception, json is[{}]", json, e);
             return null;
         }
     }
@@ -68,8 +68,8 @@ public class JsonUtil {
     public static Map<String, Object> json2Map(String json) {
         try {
             return (Map)(StringUtils.isBlank(json) ? new HashMap() : (Map)mapper.readValue(json, Map.class));
-        } catch (Exception var2) {
-            log.error("json2Map, JsonUtil exception, json is:" + json, var2);
+        } catch (Exception e) {
+            log.error("json2Map, JsonUtil exception, json is:" + json, e);
             return new HashMap();
         }
     }
