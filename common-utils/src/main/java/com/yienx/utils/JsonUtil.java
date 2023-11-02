@@ -32,14 +32,14 @@ import java.util.Map;
 public class JsonUtil {
     private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);
     private static ObjectMapper mapper = new ObjectMapper();
-    // static {
-    //     mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    //     mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-    //     //配置忽略多余字段
-    //     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    //     mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-    //     mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE).setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-    // }
+    static {
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+        //配置忽略多余字段
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE).setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+    }
     private JsonUtil() {
     }
 

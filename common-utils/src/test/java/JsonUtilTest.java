@@ -1,8 +1,13 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.yienx.utils.JsonUtil;
+import lombok.Data;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -31,4 +36,36 @@ public class JsonUtilTest {
         System.out.println(jsonNode.get(0).get("label").asText()); // 电脑
         System.out.println(jsonNode.get(0).asText("label")); // 电脑
     }
+
+    @Test
+    public void test2() {
+        // [{"NewStoreType":3, "SupportedSkuIdList":["333333", "444444"]}]
+        NewStoreTypeInfo newStoreTypeInfo = new NewStoreTypeInfo();
+        newStoreTypeInfo.setNewStoreType(3);
+        List<Long> skuIds = Arrays.asList(33333L, 44444L);
+        newStoreTypeInfo.setSupportedSkuIdList(Arrays.asList(33333L, 44444L));
+        System.out.println(JsonUtil.write2JsonStr("Arrays.asList: " + Arrays.asList(newStoreTypeInfo)));
+        List<NewStoreTypeInfo> newStoreTypeInfos = new ArrayList<>();
+        newStoreTypeInfos.add(newStoreTypeInfo);
+        System.out.println(JsonUtil.write2JsonStr("List: " + Arrays.asList(newStoreTypeInfo)));
+
+    }
+
+    @Test
+    public void test3()  {
+        Integer[] arrs = new Integer[]{1,2,3,4,5};
+        System.out.println(JsonUtil.write2JsonStr(arrs));
+        List<Integer> list1 = Arrays.asList(arrs);
+        // list1.add(1);
+        System.out.println(JsonUtil.write2JsonStr(list1));
+        List<Integer> list2 = new ArrayList<>(Arrays.asList(arrs));
+        list2.add(1);
+        System.out.println(JsonUtil.write2JsonStr(list2));
+    }
+}
+
+@Data
+class NewStoreTypeInfo {
+    private int NewStoreType;
+    private List<Long> SupportedSkuIdList;
 }

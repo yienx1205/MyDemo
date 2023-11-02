@@ -3,6 +3,10 @@ package com.yienx.aop;
 import java.lang.annotation.*;
 
 /**
+ * xml配置的见笔记
+ */
+
+/**
  * 常用注解说明：
      * 1. RetentionPolicy(保留策略)是一个enum类型，有三个值
          * SOURCE        --  这个Annotation类型的信息只会保留在程序源码里，源码如果经过了编译后，Annotation的数据就会消失，并不会保留在编译好的.class文件里
@@ -26,7 +30,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface AssertOK {
-
     String isLogin() default "false";
-
 }

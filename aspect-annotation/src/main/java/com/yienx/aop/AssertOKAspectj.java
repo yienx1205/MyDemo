@@ -1,17 +1,27 @@
 package com.yienx.aop;
-import com.sun.istack.internal.logging.Logger;
+
+import com.yienx.utils.JsonUtil;
+import org.apache.commons.lang.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Component
 @Aspect
 public class AssertOKAspectj {
 
-    private Logger logger = Logger.getLogger(this.getClass());
+    // private Logger logger = Logger.getLogger(this.getClass()); // 也可以
+    private Logger logger = LoggerFactory.getLogger(AssertOKAspectj.class);
 
     @Pointcut("@annotation(com.yienx.aop.AssertOK)")  //表示所有带有AssertOK的注解
     public void point(){
@@ -40,7 +50,7 @@ public class AssertOKAspectj {
             logger.info("argsName: " + args[i]); //输出目标方法的参数
         }
 
-        long starttime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         try {
             // 获取目标类的clazz
             Class<?> aClass = pjp.getTarget().getClass();
@@ -49,17 +59,48 @@ public class AssertOKAspectj {
             // 获取方法上的注解
             AssertOK annotation = method.getAnnotation(AssertOK.class);
             annotation.isLogin();  //获取注解函数值
-
             result = pjp.proceed();  //执行目标方法
-
-
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         } finally {
-            long exctime = System.currentTimeMillis() - starttime;
+            long exctime = System.currentTimeMillis() - startTime;
             logger.info("执行时间：" + exctime + "毫秒");
         }
 
+        return result;
+    }
+
+    /**
+     * 拦截所有接口要执行的方法，记录执行方法的出入参
+     * @param point
+     * @return
+     * 需要加注解使用
+     */
+    public Object doLog(ProceedingJoinPoint point) {
+        // String className = point.getTarget().getClass().getSimpleName();
+        String className = point.getTarget().getClass().getName();
+        String methodName = point.getSignature().getName();// 方法名称
+        Object[] method_args = point.getArgs(); // 获取方法的参数值数组
+        String[] paramNames = new String[method_args.length];
+        for (int i = 0; i < paramNames.length; i++) {
+            paramNames[i] = "arg" + (i + 1);
+        }
+        Object result = null;// 方法执行结果
+        try {
+            result = point.proceed();// 执行目标对象的业务方法
+        } catch (Throwable e) {
+            logger.error("AspectUtils.doLog error", e);
+        } finally {
+            try {
+                if (result == null) {
+                    logger.info("className=" + className + ";methodName=" + methodName + ";params=" + getParam(paramNames, method_args) + ";result={}");
+                } else {
+                    logger.info("className=" + className + ";methodName=" + methodName + ";params=" + getParam(paramNames, method_args) + ";result="
+                            + JsonUtil.write2JsonStr(result));
+                }
+            }catch (Exception ex)
+            {}
+        }
         return result;
     }
 
@@ -76,7 +117,6 @@ public class AssertOKAspectj {
         String className = pjp.getTarget().getClass().getName();
         String methodName = pjp.getSignature().getName();
 
-
         long startTime = System.currentTimeMillis();
         try {
             result = pjp.proceed();  //执行目标方法
@@ -89,5 +129,45 @@ public class AssertOKAspectj {
 
         return result;
     }
+
+    /**
+     * 打印方法参数值 基本类型直接打印，非基本类型需要重写toString方法
+     *
+     * @param paramsArgsName
+     *            方法参数名数组
+     * @param paramsArgsValue
+     *            方法参数值数组
+     */
+    private String getParam(String[] paramsArgsName, Object[] paramsArgsValue) {
+        if (ArrayUtils.isEmpty(paramsArgsName) || ArrayUtils.isEmpty(paramsArgsValue)) {
+            return "{}";
+        }
+        Map<String, Object> paramsMap= new LinkedHashMap<String, Object>();
+//        JSONObject params = new JSONObject();
+        for (int i = 0; i < paramsArgsName.length; i++) {
+            // 参数名
+            String name = paramsArgsName[i];
+            // 参数值
+            Object value = paramsArgsValue[i];
+            if(value instanceof HttpServletRequest) {
+                continue;
+            }
+            paramsMap.put(name, value);
+            // if(isPrimite(value.getClass())){
+            // params.put(name, value);
+            // }else {
+            // if (value instanceof Set) {
+            //
+            // } else if (value instanceof List) {
+            //
+            // } else if (value.getClass().isArray() ) { //判断是否为数组
+            //
+            // }
+            // JsonSerializableTool.toJson(value);
+            // }
+        }
+        return JsonUtil.write2JsonStr(paramsMap);
+    }
+
 
 }
