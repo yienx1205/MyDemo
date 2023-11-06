@@ -44,10 +44,10 @@ public class JsonUtilTest {
         newStoreTypeInfo.setNewStoreType(3);
         List<Long> skuIds = Arrays.asList(33333L, 44444L);
         newStoreTypeInfo.setSupportedSkuIdList(Arrays.asList(33333L, 44444L));
-        System.out.println(JsonUtil.write2JsonStr("Arrays.asList: " + Arrays.asList(newStoreTypeInfo)));
+        System.out.println("Arrays.asList: " + JsonUtil.write2JsonStr(Arrays.asList(newStoreTypeInfo)));
         List<NewStoreTypeInfo> newStoreTypeInfos = new ArrayList<>();
         newStoreTypeInfos.add(newStoreTypeInfo);
-        System.out.println(JsonUtil.write2JsonStr("List: " + Arrays.asList(newStoreTypeInfo)));
+        System.out.println("List: " + JsonUtil.write2JsonStr(Arrays.asList(newStoreTypeInfo)));
 
     }
 
@@ -66,6 +66,6 @@ public class JsonUtilTest {
 
 @Data
 class NewStoreTypeInfo {
-    private int NewStoreType;
-    private List<Long> SupportedSkuIdList;
+    private int newStoreType;
+    private List<Long> supportedSkuIdList;
 }

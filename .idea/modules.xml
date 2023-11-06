@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MyDemo.iml" filepath="$PROJECT_DIR$/MyDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aspect-annotation.iml" filepath="$PROJECT_DIR$/aspect-annotation.iml" />
     </modules>
   </component>
 </project>

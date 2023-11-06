@@ -18,17 +18,16 @@ import java.util.Map;
 
 @Component
 @Aspect
-public class AssertOKAspectj {
+public class AspectUtils {
 
     // private Logger logger = Logger.getLogger(this.getClass()); // 也可以
-    private Logger logger = LoggerFactory.getLogger(AssertOKAspectj.class);
+    private Logger logger = LoggerFactory.getLogger(AspectUtils.class);
 
-    @Pointcut("@annotation(com.yienx.aop.AssertOK)")  //表示所有带有AssertOK的注解
-    public void point(){
+    // @Pointcut("@annotation(com.yienx.aop.AssertOK)")  //表示所有带有AssertOK的注解
+    @Pointcut("execution(* com.yienx..*.*(..))") //表示拦截所有com.yienx包及子包下的所有的方法
+    public void point(){}
 
-    }
-
-//    @Pointcut("execution(* com.mb..*.*(..))")  //表示拦截所有com.mb包及子包下的所有的方法
+//    @Pointcut("execution(* com.yienx..*.*(..))")  //表示拦截所有com.yienx包及子包下的所有的方法
 //    public void pjp(){
 //
 //    }
@@ -72,22 +71,23 @@ public class AssertOKAspectj {
 
     /**
      * 拦截所有接口要执行的方法，记录执行方法的出入参
-     * @param point
+     * @param pjp
      * @return
      * 需要加注解使用
      */
-    public Object doLog(ProceedingJoinPoint point) {
-        // String className = point.getTarget().getClass().getSimpleName();
-        String className = point.getTarget().getClass().getName();
-        String methodName = point.getSignature().getName();// 方法名称
-        Object[] method_args = point.getArgs(); // 获取方法的参数值数组
+    @Around(value = "point()")
+    public Object doLog(ProceedingJoinPoint pjp) {
+        // String className = pjp.getTarget().getClass().getSimpleName();
+        String className = pjp.getTarget().getClass().getName();
+        String methodName = pjp.getSignature().getName();// 方法名称
+        Object[] method_args = pjp.getArgs(); // 获取方法的参数值数组
         String[] paramNames = new String[method_args.length];
         for (int i = 0; i < paramNames.length; i++) {
             paramNames[i] = "arg" + (i + 1);
         }
         Object result = null;// 方法执行结果
         try {
-            result = point.proceed();// 执行目标对象的业务方法
+            result = pjp.proceed();// 执行目标对象的业务方法
         } catch (Throwable e) {
             logger.error("AspectUtils.doLog error", e);
         } finally {
@@ -111,13 +111,12 @@ public class AssertOKAspectj {
      */
     @Around(value = "point()")
     public Object doTime(ProceedingJoinPoint pjp){
-        // 目标方法的返回值
-        Object result = null;
-
         String className = pjp.getTarget().getClass().getName();
         String methodName = pjp.getSignature().getName();
 
         long startTime = System.currentTimeMillis();
+        // 目标方法的返回值
+        Object result = null;
         try {
             result = pjp.proceed();  //执行目标方法
         } catch (Throwable throwable) {

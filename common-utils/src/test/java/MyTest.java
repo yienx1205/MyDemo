@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.UUID;
+
 /**
  * @Author wangyanbo29
  * @Date 2023/10/30
@@ -9,7 +11,8 @@ public class MyTest {
 
     @Test
     public void test01() {
-        System.out.println(!true && true); // false
-        System.out.println(!false && false); // false
+        UUID uuid = UUID.randomUUID();
+        String uuidString = uuid.toString().replace("-", "").toUpperCase();
+        System.out.println(uuidString);
     }
 }
