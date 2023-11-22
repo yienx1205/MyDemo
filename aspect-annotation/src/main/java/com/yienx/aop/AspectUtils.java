@@ -16,6 +16,9 @@ import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * @Aspect注解表示将该类作为一个切面
+ */
 @Component
 @Aspect
 public class AspectUtils {
@@ -24,6 +27,7 @@ public class AspectUtils {
     private Logger logger = LoggerFactory.getLogger(AspectUtils.class);
 
     // @Pointcut("@annotation(com.yienx.aop.AssertOK)")  //表示所有带有AssertOK的注解
+    // @Pointcut表示切入点
     @Pointcut("execution(* com.yienx..*.*(..))") //表示拦截所有com.yienx包及子包下的所有的方法
     public void point(){}
 

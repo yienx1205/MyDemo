@@ -31,6 +31,7 @@ public class JsonUtilTest {
         System.out.println(jsonNode);
         System.out.println("jsonNode是数组？" + jsonNode.isArray());
         log.info("jsonNode是数组? {}", jsonNode.isArray());
+        log.isInfoEnabled();
         // 读取第一组的，get(0)
         System.out.println(jsonNode.get(0).get("label")); // "电脑"
         System.out.println(jsonNode.get(0).get("label").asText()); // 电脑

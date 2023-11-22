@@ -19,4 +19,16 @@
     <!-- <aop:aspectj-autoproxy/> -->
     <!-- <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/> -->
 
+    <!-- 不使用用注解的方式
+        <aop:config>
+            <aop:aspect id="logAroundAspect" ref="aspectUtils">
+                <aop:pointcut id="logBusiness"
+                              expression="execution(* com.yienx.aop.*..*(..))
+                               || execution(* com.yienx.request.*..*(..))
+                               "/>
+                <aop:around pointcut-ref="logBusiness" method="doLog"/>
+            </aop:aspect>
+        </aop:config>
+        <bean id="aspectUtils" class="com.yienx.aop.AspectUtils"/>
+    -->
 </beans>
