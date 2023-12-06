@@ -14,5 +14,6 @@
         <module>netty</module>
         <module>aspect-annotation</module>
         <module>test</module>
+        <module>design-pattern</module>
     </modules>
 </project>
