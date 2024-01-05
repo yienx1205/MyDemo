@@ -1,5 +1,10 @@
 package com.yienx.test;
 
+import org.apache.commons.lang.time.DateFormatUtils;
+
+import java.util.Arrays;
+import java.util.Date;
+
 /**
  * @Author wangyanbo29
  * @Date 2023/10/9
@@ -8,9 +13,12 @@ package com.yienx.test;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        char a = '1';
-        Integer b = 1;
-        System.out.println(Character.getNumericValue(a) == b);
+        String erps = "wangyanboliumei";
+        System.out.println(Arrays.asList(erps.split(",")));
+        System.out.println(DateFormatUtils.format(new Date(), "yyyy-MM-dd"));
+    }
+
+    public void changeStr(String str) {
 
     }
 }
