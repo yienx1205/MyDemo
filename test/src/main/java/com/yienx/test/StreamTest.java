@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +42,26 @@ public class StreamTest {
          */
         Map<Integer, Apple> appleMap = appleList.stream().collect(Collectors.toMap(Apple::getId, a -> a,(k1,k2)->k1));
         System.out.println("appleMap: " + appleMap);
+    }
+
+    @Test
+    public void test01() {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
+        AtomicBoolean flag = new AtomicBoolean(true);
+        boolean flag1 = true;
+        list.forEach(o -> {
+            if ((o & 1) != 0) {
+                System.out.println(o);
+                flag.set(false);
+            }
+            System.out.println(flag.get());
+        });
     }
 
 }

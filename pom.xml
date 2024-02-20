@@ -15,5 +15,6 @@
         <module>aspect-annotation</module>
         <module>test</module>
         <module>design-pattern</module>
+        <module>mokito</module>
     </modules>
 </project>
