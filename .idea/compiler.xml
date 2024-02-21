@@ -10,6 +10,7 @@
         <module name="design-pattern" />
         <module name="aspect-annotation" />
         <module name="test" />
+        <module name="mokito" />
         <module name="kafka" />
         <module name="quartz" />
         <module name="common-utils" />
@@ -19,8 +20,9 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="aspect" target="1.8" />
-      <module name="aspectjdemo" target="1.8" />
       <module name="aspectjDemo" target="1.8" />
+      <module name="aspectjdemo" target="1.8" />
+      <module name="demo" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -28,6 +30,7 @@
       <module name="aspect" options="" />
       <module name="canal" options="-parameters" />
       <module name="common-utils" options="" />
+      <module name="demo" options="-parameters" />
       <module name="kafka" options="-parameters" />
     </option>
   </component>

@@ -1,4 +1,4 @@
-package com.yienx.pattern;
+package com.yienx.mockito;
 
 /**
  * @Author wangyanbo29
@@ -9,4 +9,5 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
     }
+
 }

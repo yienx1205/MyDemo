@@ -14,12 +14,14 @@
         <option value="$PROJECT_DIR$/aspect/pom.xml" />
         <option value="$PROJECT_DIR$/aspectjDemo/pom.xml" />
         <option value="$PROJECT_DIR$/aspect/aspect-annotation/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/aspect/aspect-annotation/pom.xml" />
         <option value="$PROJECT_DIR$/aspectjDemo/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/pom.xml" />
       </set>
     </option>
   </component>
